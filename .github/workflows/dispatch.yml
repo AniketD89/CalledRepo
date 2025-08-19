@@ -6,5 +6,6 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    steps:
       - name: Show current branch
         run: echo "Running workflow on branch ${{ github.ref }}"
