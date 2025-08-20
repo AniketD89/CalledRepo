@@ -1,0 +1,11 @@
+name: SecondWokflow
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Show current branch
+        run: echo "Running workflow2 on branch ${{ github.ref }}"
