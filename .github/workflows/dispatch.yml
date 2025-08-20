@@ -1,26 +1,11 @@
-name: Trigger Multiple Workflows in Repo B
+name: Deploy Workflow1
 
 on:
-  push:
-    branches:
-      - dev
-
-env:
-  WORKFLOWS_TO_TRIGGER: dispatch.yml,dispatch2.yml  # Comma-separated workflow filenames
-  TARGET_REPO: AniketD89/CalledRepo
-  TARGET_BRANCH: dev
+  workflow_dispatch:
 
 jobs:
-  trigger-multiple-workflows:
+  deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Trigger multiple workflows in Repo B
-        run: |
-          IFS=',' read -ra WORKFLOWS <<< "${WORKFLOWS_TO_TRIGGER}"
-          for workflow in "${WORKFLOWS[@]}"; do
-            echo "Triggering workflow: $workflow"
-            curl -X POST "https://api.github.com/repos/${TARGET_REPO}/actions/workflows/${workflow}/dispatches" \
-              -H "Authorization: Bearer ${{ secrets.REPO_PAT }}" \
-              -H "Accept: application/vnd.github+json" \
-              -d "{\"ref\":\"${TARGET_BRANCH}\"}"
-          done
+      - name: Show current branch
+        run: echo "Running workflow1 on branch ${{ github.ref }}"
